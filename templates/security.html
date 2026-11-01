@@ -1,0 +1,166 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Security Operations Dashboard</title>
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f6f8;
+      margin: 0;
+      color: #253047;
+    }
+
+    header {
+      background: #172b4d;
+      color: white;
+      padding: 28px 40px;
+    }
+
+    header h1 { margin-bottom: 8px; }
+    header a { color: #dbeafe; }
+
+    main {
+      max-width: 1200px;
+      padding: 30px;
+      margin: auto;
+    }
+
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+      gap: 16px;
+    }
+
+    .metric, .panel {
+      background: white;
+      padding: 22px;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px #0000000a;
+    }
+
+    .metric h2 {
+      font-size: 34px;
+      margin: 10px 0;
+    }
+
+    .metric p { color: #64748b; }
+
+    .panel {
+      margin-top: 24px;
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 14px;
+    }
+
+    th, td {
+      padding: 14px;
+      border-bottom: 1px solid #e5e7eb;
+      vertical-align: top;
+    }
+
+    th { background: #f8fafc; }
+
+    .high {
+      color: #b42318;
+      font-weight: bold;
+    }
+
+    .medium {
+      color: #a16207;
+      font-weight: bold;
+    }
+
+    .empty {
+      color: #64748b;
+      text-align: center;
+      padding: 30px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Security Operations Dashboard</h1>
+    <p>Pilates Studio | Authentication Threat Monitoring</p>
+    <a href="{{ url_for('dashboard') }}">
+      Back to Pilates App
+    </a>
+  </header>
+
+  <main>
+    <section class="metrics">
+      <div class="metric">
+        <p>Total Login Attempts</p>
+        <h2>{{ total_logins }}</h2>
+      </div>
+
+      <div class="metric">
+        <p>Successful Logins</p>
+        <h2>{{ successful_logins }}</h2>
+      </div>
+
+      <div class="metric">
+        <p>Failed Logins</p>
+        <h2>{{ failed_logins }}</h2>
+      </div>
+
+      <div class="metric">
+        <p>High Severity Alerts</p>
+        <h2>{{ high_alerts }}</h2>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Detected Security Incidents</h2>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Timestamp (UTC)</th>
+            <th>Severity</th>
+            <th>Alert Type</th>
+            <th>Username</th>
+            <th>Source IP</th>
+            <th>Failed Attempts</th>
+            <th>Recommended Response</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {% for alert in alerts %}
+          <tr>
+            <td>{{ alert.timestamp }}</td>
+
+            <td class="{{ alert.severity|lower }}">
+              {{ alert.severity }}
+            </td>
+
+            <td>{{ alert.alert_type }}</td>
+            <td>{{ alert.username }}</td>
+            <td>{{ alert.source_ip }}</td>
+            <td>{{ alert.failed_attempts }}</td>
+            <td>{{ alert.recommendation }}</td>
+          </tr>
+          {% else %}
+          <tr>
+            <td colspan="7" class="empty">
+              No security alerts detected yet.
+              Try five failed logins within five minutes.
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </section>
+  </main>
+</body>
+</html>

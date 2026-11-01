@@ -1,0 +1,87 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pilates Studio | Dashboard</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f7f3ed;
+      margin: 0;
+      color: #333;
+    }
+
+    header {
+      background: #526b59;
+      color: white;
+      padding: 30px 40px;
+    }
+
+    main {
+      padding: 35px;
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    .class-card {
+      background: white;
+      padding: 22px;
+      margin: 15px 0;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px #0000000a;
+    }
+
+    .class-card h2 {
+      color: #526b59;
+      margin-top: 0;
+    }
+
+    .security-button {
+      display: inline-block;
+      background: #172b4d;
+      color: white;
+      padding: 15px 24px;
+      border-radius: 9px;
+      text-decoration: none;
+      margin: 25px 0 15px;
+      font-weight: bold;
+    }
+
+    .security-button:hover { background: #29476f; }
+
+    .logout {
+      display: block;
+      color: #526b59;
+      margin-top: 15px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Pilates Studio</h1>
+    <p>Welcome back, {{ username }}!</p>
+  </header>
+
+  <main>
+    <h2>Upcoming Pilates Classes</h2>
+
+    {% for class in classes %}
+      <div class="class-card">
+        <h2>{{ class.name }}</h2>
+        <p>{{ class.time }}</p>
+      </div>
+    {% endfor %}
+
+    <a class="security-button"
+       href="{{ url_for('security_dashboard') }}">
+      View Security Operations Dashboard
+    </a>
+
+    <a class="logout" href="{{ url_for('logout') }}">
+      Log out
+    </a>
+  </main>
+</body>
+</html>

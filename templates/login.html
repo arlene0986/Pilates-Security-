@@ -1,0 +1,89 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pilates Studio | Login</title>
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #f3e1f0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      margin: 0;
+      color: #000000;
+    }
+
+    .card {
+      background: white;
+      padding: 40px;
+      border-radius: 16px;
+      width: min(380px, 90vw);
+      box-shadow: 0 8px 30px #00000012;
+    }
+
+    h1 { color: #526b59; }
+
+    input, button {
+      display: block;
+      width: 100%;
+      padding: 13px;
+      margin: 12px 0;
+      border-radius: 8px;
+      font-size: 15px;
+    }
+
+    input { border: 1px solid #ccc; }
+
+    button {
+      background: #526b59;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    button:hover { background: #02641c; }
+
+    .error { color: #f42d26; }
+    .hint { color: #9c30ef; font-size: 13px; }
+  </style>
+</head>
+<body>
+  <main class="card">
+    <h1>Pilates Studio</h1>
+    <p>Welcome back! Sign in to view your classes.</p>
+
+    {% if error %}
+      <p class="error">{{ error }}</p>
+    {% endif %}
+
+    <form method="POST">
+      <input
+        name="username"
+        placeholder="Enter Username"
+        autocomplete="username"
+        required
+      >
+
+      <input
+        name="password"
+        type="password"
+        placeholder="Enter Password"
+        autocomplete="current-password"
+        required
+      >
+
+      <button type="submit">Sign In</button>
+    </form>
+
+    <p class="hint">
+      Local cybersecurity demonstration application
+    </p>
+  </main>
+</body>
+</html>
